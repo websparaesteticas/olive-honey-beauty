@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Olive & Honey Beauty Studio | Cerro de las Rosas · Córdoba</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ivory:   #F9F6F0;
+      --linen:   #EDE8DF;
+      --sage:    #C8D5B4;
+      --olive:   #6B7C4A;
+      --deep:    #3A4A28;
+      --honey:   #C49A3C;
+      --amber:   #A07A22;
+      --white:   #FFFFFF;
+      --radius:  12px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Georgia', serif;
+      background: var(--ivory);
+      color: var(--deep);
+      line-height: 1.7;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%;
+      background: rgba(249, 246, 240, 0.95);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+      border-bottom: 1px solid var(--linen);
+    }
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--olive);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .nav-logo-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--honey);
+      display: inline-block;
+    }
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--deep);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--olive); }
+    .nav-cta {
+      background: var(--olive);
+      color: var(--white) !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.8rem !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--deep) !important; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--deep); border-radius: 2px; transition: 0.3s; }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      background:
+        linear-gradient(160deg, rgba(249,246,240,0.90) 0%, rgba(200,213,180,0.65) 100%),
+        url('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1600&q=80') center/cover no-repeat;
+    }
+    .hero-tag {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.73rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--olive);
+      margin-bottom: 1.4rem;
+    }
+    .hero-wordmark {
+      margin-bottom: 1.4rem;
+    }
+    .hero-wordmark h1 {
+      font-size: clamp(2.8rem, 8vw, 5.5rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--deep);
+      line-height: 1.1;
+    }
+    .hero-wordmark h1 span {
+      color: var(--honey);
+    }
+    .hero-wordmark .amp {
+      color: var(--olive);
+      font-style: italic;
+    }
+    .hero-sub-line {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--olive);
+      opacity: 0.75;
+      margin-bottom: 1.4rem;
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--deep);
+      opacity: 0.72;
+      max-width: 460px;
+      margin: 0 auto 2.5rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      border-radius: 40px;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--olive);
+      color: var(--white);
+    }
+    .btn-primary:hover { background: var(--deep); transform: translateY(-2px); }
+    .btn-outline {
+      border: 1.5px solid var(--olive);
+      color: var(--olive);
+      margin-left: 1rem;
+    }
+    .btn-outline:hover { background: var(--olive); color: var(--white); transform: translateY(-2px); }
+    .hero-badge {
+      margin-top: 3rem;
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: var(--white);
+      padding: 0.6rem 1.4rem;
+      border-radius: 40px;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.8rem;
+      color: var(--deep);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .stars { color: var(--honey); font-size: 1rem; letter-spacing: 2px; }
+
+    /* ── Section base ── */
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--honey);
+      margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--deep);
+      margin-bottom: 1.2rem;
+      line-height: 1.2;
+    }
+    .section-intro {
+      font-size: 1.05rem;
+      color: var(--deep);
+      opacity: 0.7;
+      max-width: 560px;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ── Servicios ── */
+    #servicios { background: var(--white); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--ivory);
+      border-radius: var(--radius);
+      padding: 2rem 1.8rem;
+      border: 1px solid var(--linen);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--sage);
+      border-radius: 3px 0 0 3px;
+      transition: background 0.2s;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(107,124,74,0.10); }
+    .service-card:hover::before { background: var(--olive); }
+    .service-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .service-card h3 {
+      font-size: 1.1rem;
+      color: var(--olive);
+      margin-bottom: 0.5rem;
+    }
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--deep);
+      opacity: 0.72;
+    }
+
+    /* ── Nosotros ── */
+    #nosotros { background: var(--ivory); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4.5rem;
+      align-items: center;
+    }
+    .about-img {
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      position: relative;
+    }
+    .about-img img { width: 100%; height: 100%; object-fit: cover; }
+    .about-img-badge {
+      position: absolute;
+      bottom: 1.5rem; right: 1.5rem;
+      background: var(--white);
+      padding: 0.9rem 1.2rem;
+      border-radius: var(--radius);
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    .about-img-badge .big { font-size: 1.8rem; font-weight: 700; color: var(--honey); line-height: 1; }
+    .about-img-badge .small { font-family: 'Arial', sans-serif; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--deep); opacity: 0.6; }
+    .about-text p { margin-bottom: 1rem; opacity: 0.8; }
+    .about-highlight {
+      background: var(--linen);
+      border-left: 3px solid var(--olive);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.2rem 1.5rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      font-size: 1.05rem;
+      opacity: 0.85;
+    }
+    .about-stat {
+      display: flex; gap: 2.5rem; margin-top: 2rem;
+    }
+    .stat-box { text-align: left; }
+    .stat-num { font-size: 2.4rem; font-weight: 700; color: var(--olive); line-height: 1; }
+    .stat-label { font-family: 'Arial', sans-serif; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.55; }
+
+    /* ── Reseñas ── */
+    #reseñas { background: var(--deep); color: var(--ivory); }
+    #reseñas .section-title { color: var(--ivory); }
+    #reseñas .section-intro { color: var(--sage); opacity: 1; }
+    #reseñas .section-label { color: var(--honey); }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .review-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      transition: background 0.2s;
+    }
+    .review-card:hover { background: rgba(255,255,255,0.09); }
+    .review-stars { color: var(--honey); font-size: 1rem; letter-spacing: 2px; margin-bottom: 1rem; }
+    .review-text { font-size: 0.92rem; opacity: 0.82; margin-bottom: 1.2rem; font-style: italic; line-height: 1.65; }
+    .review-author { font-family: 'Arial', sans-serif; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.45; }
+    .reviews-cta {
+      text-align: center; margin-top: 3rem;
+    }
+    .reviews-cta p { opacity: 0.55; margin-bottom: 1rem; font-family: 'Arial', sans-serif; font-size: 0.85rem; }
+    .btn-honey {
+      background: var(--honey);
+      color: var(--white);
+    }
+    .btn-honey:hover { background: var(--amber); transform: translateY(-2px); }
+
+    /* ── Zona ── */
+    #zona { background: var(--linen); }
+    .zona-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .zona-map {
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--sage);
+    }
+    .zona-map iframe {
+      width: 100%; height: 100%; border: none;
+    }
+    .zona-info p { opacity: 0.78; margin-bottom: 1rem; }
+    .zona-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--olive);
+      color: var(--white);
+      font-family: 'Arial', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Contacto ── */
+    #contacto { background: var(--white); }
+    .contact-wrap {
+      max-width: 600px;
+    }
+    .contact-info p { opacity: 0.75; margin-bottom: 2.5rem; }
+    .contact-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      margin-bottom: 1.6rem;
+    }
+    .contact-icon { font-size: 1.3rem; margin-top: 2px; }
+    .contact-item strong {
+      display: block; font-size: 0.75rem;
+      font-family: 'Arial', sans-serif;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      opacity: 0.5; margin-bottom: 3px;
+    }
+    .contact-item span { font-size: 0.95rem; }
+    .contact-item a { color: var(--olive); }
+    .contact-item a:hover { color: var(--deep); }
+    .contact-ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2.5rem; }
+
+    /* ── WhatsApp float ── */
+    .wa-float {
+      position: fixed; bottom: 1.8rem; right: 1.8rem;
+      background: #25D366;
+      color: white;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+      z-index: 200;
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+    .wa-float:hover { transform: scale(1.1); }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--deep);
+      color: var(--linen);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .footer-logo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--sage);
+      margin-bottom: 0.4rem;
+    }
+    .footer-logo span { color: var(--honey); }
+    footer p {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.78rem;
+      opacity: 0.4;
+      margin-top: 0.3rem;
+    }
+    .footer-divider {
+      width: 40px; height: 1px;
+      background: var(--honey);
+      margin: 1.2rem auto;
+      opacity: 0.4;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 64px; left: 0; width: 100%;
+        background: var(--ivory);
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--linen);
+        gap: 1.2rem;
+      }
+      .about-grid, .zona-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-img { aspect-ratio: 16/9; }
+      .btn-outline { margin-left: 0; margin-top: 0.8rem; }
+      .hero-wordmark h1 { font-size: clamp(2.4rem, 14vw, 4rem); }
+      .contact-ctas { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <span>OLIVE <span style="color:var(--honey); font-style:italic;">&</span> HONEY</span>
+    <div class="nav-logo-dot"></div>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#reseñas">Reseñas</a></li>
+    <li><a href="#contacto" class="nav-cta">Reservar turno</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div>
+    <p class="hero-tag">Beauty Studio · Cerro de las Rosas · Córdoba</p>
+    <div class="hero-wordmark">
+      <h1>Olive <span class="amp">&</span></h1>
+      <h1><span>Honey</span></h1>
+    </div>
+    <p class="hero-sub-line">Beauty Studio</p>
+    <p class="hero-sub">Un espacio luminoso donde la belleza y el bienestar se encuentran. Tratamientos personalizados para realzar tu mejor versión.</p>
+    <div>
+      <a href="#contacto" class="btn btn-primary">Reservar turno</a>
+      <a href="#servicios" class="btn btn-outline">Ver servicios</a>
+    </div>
+    <div class="hero-badge">
+      <span class="stars">★★★★★</span>
+      <strong>5.0 estrellas · 97 reseñas en Google</strong>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="container">
+    <p class="section-label">Lo que ofrecemos</p>
+    <h2 class="section-title">Nuestros servicios</h2>
+    <p class="section-intro">Cada tratamiento está pensado para mimarte de pies a cabeza, con productos premium y técnicas en constante actualización.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">✨</div>
+        <h3>Estética Facial</h3>
+        <p>Limpiezas profundas, hidratación, tratamientos anti-edad y protocolos personalizados según tu tipo de piel.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💅</div>
+        <h3>Manicuría</h3>
+        <p>Esmaltado semipermanente, diseño y cuidado integral de manos. Durabilidad y estilo que reflejan tu personalidad.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌿</div>
+        <h3>Tratamientos de Belleza</h3>
+        <p>Rituales integrales que combinan técnica y bienestar para que salgas renovada y radiante desde adentro hacia afuera.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🍯</div>
+        <h3>Cuidado de Cejas</h3>
+        <p>Diseño, depilación y perfilación para enmarcar perfectamente tu mirada con precisión artesanal.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌸</div>
+        <h3>Tratamientos Corporales</h3>
+        <p>Hidratación, masajes y rituales de relajación para que tu cuerpo también se sienta en su mejor momento.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🫧</div>
+        <h3>Pedicuría</h3>
+        <p>Cuidado completo de pies con esmaltado, hidratación y atención al detalle que tus pies merecen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img">
+        <img
+          src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&q=80"
+          alt="Interior Olive & Honey Beauty Studio"
+          loading="lazy"
+        />
+        <div class="about-img-badge">
+          <div class="big">5.0</div>
+          <div class="small">⭐ Google</div>
+        </div>
+      </div>
+      <div class="about-text">
+        <p class="section-label">Quiénes somos</p>
+        <h2 class="section-title">Un espacio luminoso hecho para vos</h2>
+        <p>En Olive & Honey creemos que la belleza es una experiencia, no solo un resultado. Cada visita es un momento para vos: sin apuro, con atención plena y productos que realmente hacen la diferencia.</p>
+        <div class="about-highlight">
+          "El local es luminoso y muy decorado. La atención es increíble y el resultado supera expectativas."
+        </div>
+        <p>Estamos en Cerro de las Rosas, un barrio que compartimos el amor por el detalle y la calidad. Te esperamos para que lo compruebes.</p>
+        <div class="about-stat">
+          <div class="stat-box">
+            <div class="stat-num">5.0</div>
+            <div class="stat-label">Estrellas</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">97</div>
+            <div class="stat-label">Reseñas</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Satisfacción</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEÑAS -->
+<section id="reseñas">
+  <div class="container">
+    <p class="section-label">Lo que dicen nuestras clientas</p>
+    <h2 class="section-title">Puntuación perfecta en Google</h2>
+    <p class="section-intro">97 reseñas, todas cinco estrellas. La confianza de nuestras clientas es nuestro mayor orgullo.</p>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"El lugar es hermoso, la atención es cálida y profesional. Me hicieron una limpieza facial increíble, salí brillando. Sin duda el mejor beauty studio de Cerro."</p>
+        <div class="review-author">— Sofía L.</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"La manicuría perfecta, dura semanas sin astillarse. El espacio está divino, cada detalle está cuidado. Me voy a convertir en clienta fija."</p>
+        <div class="review-author">— Camila V.</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Vine por primera vez y ya saqué turno para el mes que viene. Las chicas son un amor, saben lo que hacen y el local es muy bonito y acogedor."</p>
+        <div class="review-author">— Mariana B.</div>
+      </div>
+    </div>
+    <div class="reviews-cta">
+      <p>¿Ya nos visitaste? Contanos tu experiencia.</p>
+      <a
+        href="https://www.google.com/maps/place/Olive+%26+Honey+Beauty+Studio/@-31.3758352,-64.2301167,17z"
+        target="_blank"
+        class="btn btn-honey"
+      >Ver todas las reseñas en Google</a>
+    </div>
+  </div>
+</section>
+
+<!-- ZONA -->
+<section id="zona">
+  <div class="container">
+    <div class="zona-grid">
+      <div class="zona-info">
+        <div class="zona-tag">📍 Cerro de las Rosas</div>
+        <p class="section-label">Dónde encontrarnos</p>
+        <h2 class="section-title">En el corazón del barrio</h2>
+        <p>Nos encontrás en Nicolás Berrotarán 1917, Oficina 1F — un espacio cuidado en uno de los barrios más lindos de Córdoba.</p>
+        <p>Fácil acceso, estacionamiento en la zona y un ambiente que te hace sentir cómoda desde que llegás.</p>
+        <div class="contact-item" style="margin-top: 1.8rem;">
+          <span class="contact-icon">📍</span>
+          <div>
+            <strong>Dirección</strong>
+            <span>Nicolás Berrotarán 1917, Of. 1F<br>Cerro de las Rosas, Córdoba</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">📞</span>
+          <div>
+            <strong>Teléfono</strong>
+            <span><a href="tel:+5403518603847">0351 860-3847</a></span>
+          </div>
+        </div>
+      </div>
+      <div class="zona-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3403.8!2d-64.2301167!3d-31.3758352!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDIyJzMyLjkiUyA2NMKwMTMnNDguNCJX!5e0!3m2!1ses!2sar!4v1"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Ubicación Olive & Honey"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="container">
+    <div class="contact-wrap">
+      <p class="section-label">Contacto</p>
+      <h2 class="section-title">Reservá tu turno</h2>
+      <p class="contact-info">Escribinos por WhatsApp o a nuestro Instagram y te confirmamos en minutos.</p>
+
+      <div class="contact-item">
+        <span class="contact-icon">📍</span>
+        <div>
+          <strong>Dirección</strong>
+          <span>Nicolás Berrotarán 1917, Of. 1F · Cerro de las Rosas</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">📞</span>
+        <div>
+          <strong>Teléfono</strong>
+          <span><a href="tel:+5403518603847">0351 860-3847</a></span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">🕐</span>
+        <div>
+          <strong>Horarios</strong>
+          <span>Lunes a viernes: 9:00 – 20:00<br>Sábados: 9:00 – 14:00</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">📸</span>
+        <div>
+          <strong>Instagram</strong>
+          <span><a href="https://instagram.com" target="_blank">@oliveandhoney.studio</a></span>
+        </div>
+      </div>
+
+      <div class="contact-ctas">
+        <a
+          href="https://wa.me/5493518603847?text=Hola!%20Quisiera%20consultar%20por%20un%20turno%20en%20Olive%20%26%20Honey"
+          target="_blank"
+          class="btn btn-primary"
+        >💬 Escribir por WhatsApp</a>
+        <a href="#servicios" class="btn btn-outline">Ver servicios</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">OLIVE <span>&</span> HONEY</div>
+  <div class="footer-divider"></div>
+  <p>Nicolás Berrotarán 1917, Of. 1F · Cerro de las Rosas · Córdoba Capital</p>
+  <p style="margin-top: 0.4rem;">© 2024 Olive & Honey Beauty Studio · Todos los derechos reservados</p>
+</footer>
+
+<!-- WhatsApp flotante -->
+<a
+  class="wa-float"
+  href="https://wa.me/5493518603847?text=Hola!%20Quisiera%20consultar%20por%20un%20turno%20en%20Olive%20%26%20Honey"
+  target="_blank"
+  title="Escribinos por WhatsApp"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="white">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.524 5.849L.057 23.885a.5.5 0 0 0 .608.633l6.193-1.623A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.813 9.813 0 0 1-5.032-1.383l-.36-.214-3.733.979.997-3.645-.236-.373A9.818 9.818 0 0 1 2.182 12c0-5.413 4.405-9.818 9.818-9.818 5.413 0 9.818 4.405 9.818 9.818 0 5.413-4.405 9.818-9.818 9.818z"/>
+  </svg>
+</a>
+
+<script>
+  function toggleMenu() {
+    const links = document.getElementById('navLinks');
+    links.classList.toggle('open');
+  }
+</script>
+
+</body>
+</html>
