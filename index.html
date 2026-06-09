@@ -415,6 +415,21 @@
       .hero-wordmark h1 { font-size: clamp(2.4rem, 14vw, 4rem); }
       .contact-ctas { flex-direction: column; }
     }
+
+    /* ── Scroll Reveal ── */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── Nav scrolled ── */
+    nav.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.12); }
+
+    /* ── WhatsApp pulse ── */
+    @keyframes wa-pulse {
+      0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.45), 0 0 0 0 rgba(37,211,102,0.4); }
+      60%       { box-shadow: 0 4px 20px rgba(37,211,102,0.45), 0 0 0 13px rgba(37,211,102,0); }
+    }
+    .wa-float { animation: wa-pulse 2.8s ease infinite; }
+    .wa-float:hover { animation: none; transform: scale(1.1); }
   </style>
 </head>
 <body>
@@ -684,9 +699,38 @@
 
 <script>
   function toggleMenu() {
-    const links = document.getElementById('navLinks');
-    links.classList.toggle('open');
+    document.getElementById('navLinks').classList.toggle('open');
   }
+
+  const _nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => _nav.classList.toggle('scrolled', window.scrollY > 50), { passive: true });
+
+  const _obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); _obs.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.service-card, .review-card, .about-text, .about-img, .contact-item, .stat-box, .section-title, .section-intro, .hero-badge').forEach((el, i) => {
+    el.classList.add('reveal');
+    el.style.transitionDelay = (i % 3) * 0.08 + 's';
+    _obs.observe(el);
+  });
+
+  function _count(el) {
+    const txt = el.textContent.trim();
+    const num = parseFloat(txt);
+    if (!num) return;
+    const suf = txt.replace(/[\d.]/g, '');
+    const isF = txt.includes('.');
+    let cur = 0;
+    const t = setInterval(() => {
+      cur = Math.min(cur + num / 60, num);
+      el.textContent = (isF ? cur.toFixed(1) : Math.floor(cur)) + suf;
+      if (cur >= num) clearInterval(t);
+    }, 25);
+  }
+  const _cobs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting && !e.target._d) { e.target._d = true; _count(e.target); } });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stat-num').forEach(el => _cobs.observe(el));
 </script>
 
 </body>
